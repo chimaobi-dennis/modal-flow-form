@@ -19,12 +19,12 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
         onClick={onClose}
       />
       
-      {/* Modal Content */}
-      <div className="relative w-full max-w-md mx-4 bg-white rounded-2xl shadow-2xl animate-scale-in">
+      {/* Modal Content - Made larger */}
+      <div className="relative w-full max-w-2xl mx-4 bg-white rounded-2xl shadow-2xl animate-scale-in max-h-[90vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors rounded-full hover:bg-gray-100"
+          className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors rounded-full hover:bg-gray-100 z-10"
         >
           <X size={20} />
         </button>
