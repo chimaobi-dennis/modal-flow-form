@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import ProgressIndicator from './ProgressIndicator';
@@ -7,12 +8,13 @@ import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Label } from './ui/label';
 
 interface FormData {
-  question1: string;
-  question2: string;
-  question3: string;
-  question4: string[];
-  question5: string;
-  question6: string[];
+  degree: string;
+  originCountry: string;
+  field: string;
+  desiredFields: string[];
+  language: string;
+  studyEnvironment: string[];
+  interests: string[];
 }
 
 interface ProgressFormProps {
@@ -22,41 +24,42 @@ interface ProgressFormProps {
 const ProgressForm = ({ onComplete }: ProgressFormProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
-    question1: '',
-    question2: '',
-    question3: '',
-    question4: [],
-    question5: '',
-    question6: []
+    degree: '',
+    originCountry: '',
+    field: '',
+    desiredFields: [],
+    language: '',
+    studyEnvironment: [],
+    interests: []
   });
 
   const [searchQuery, setSearchQuery] = useState('');
-  const searchData = [
-    'Frontend Development',
-    'Backend Development',
-    'Full Stack Development',
-    'Mobile Development',
-    'Data Science',
-    'Machine Learning',
-    'DevOps',
-    'UI/UX Design',
-    'Product Management',
-    'Digital Marketing',
-    'Cloud Computing',
-    'Cybersecurity',
-    'Artificial Intelligence',
-    'Blockchain',
-    'Game Development',
-    'Quality Assurance',
-    'Database Management',
-    'System Architecture',
-    'Technical Writing',
-    'Project Management'
+  
+  const countries = [
+    'United States', 'United Kingdom', 'Canada', 'Australia', 'Germany', 'France', 'Netherlands', 
+    'Sweden', 'Norway', 'Denmark', 'Switzerland', 'Austria', 'Belgium', 'Italy', 'Spain', 
+    'Japan', 'South Korea', 'Singapore', 'China', 'India', 'Brazil', 'Mexico', 'Argentina'
   ];
 
-  const filteredSearchData = searchData.filter(item =>
+  const fieldsOfStudy = [
+    'Computer Science', 'Business Administration', 'Engineering', 'Medicine', 'Law', 
+    'Psychology', 'Education', 'Economics', 'Biology', 'Chemistry', 'Physics', 
+    'Mathematics', 'Art & Design', 'Literature', 'History', 'Philosophy', 'Sociology',
+    'Political Science', 'International Relations', 'Marketing', 'Finance', 'Accounting'
+  ];
+
+  const interestKeywords = [
+    'Artificial Intelligence', 'Machine Learning', 'Data Science', 'Blockchain', 
+    'Sustainability', 'Climate Change', 'Renewable Energy', 'Biotechnology', 
+    'Neuroscience', 'Robotics', 'Quantum Computing', 'Space Technology', 
+    'Digital Marketing', 'Entrepreneurship', 'Innovation', 'Social Impact',
+    'Healthcare Technology', 'Financial Technology', 'Educational Technology',
+    'Virtual Reality', 'Augmented Reality', 'Cybersecurity', 'Internet of Things'
+  ];
+
+  const filteredInterests = interestKeywords.filter(item =>
     item.toLowerCase().includes(searchQuery.toLowerCase()) &&
-    !formData.question6.includes(item)
+    !formData.interests.includes(item)
   );
 
   const totalSteps = 7;
@@ -65,26 +68,34 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleMultiSelect = (value: string) => {
-    const currentValues = formData.question4;
-    if (currentValues.includes(value)) {
-      updateFormData('question4', currentValues.filter(v => v !== value));
-    } else if (currentValues.length < 3) {
-      updateFormData('question4', [...currentValues, value]);
+  const handleDesiredFieldSelect = (field: string) => {
+    const currentFields = formData.desiredFields;
+    if (currentFields.includes(field)) {
+      updateFormData('desiredFields', currentFields.filter(f => f !== field));
+    } else if (currentFields.length < 5) {
+      updateFormData('desiredFields', [...currentFields, field]);
+    }
+  };
+
+  const handleEnvironmentSelect = (env: string) => {
+    const currentEnv = formData.studyEnvironment;
+    if (currentEnv.includes(env)) {
+      updateFormData('studyEnvironment', currentEnv.filter(e => e !== env));
+    } else if (currentEnv.length < 3) {
+      updateFormData('studyEnvironment', [...currentEnv, env]);
     }
   };
 
   const handleInterestSelect = (interest: string) => {
-    const currentInterests = formData.question6;
+    const currentInterests = formData.interests;
     if (currentInterests.length < 10) {
-      updateFormData('question6', [...currentInterests, interest]);
+      updateFormData('interests', [...currentInterests, interest]);
       setSearchQuery('');
     }
   };
 
   const removeInterest = (interest: string) => {
-    const currentInterests = formData.question6;
-    updateFormData('question6', currentInterests.filter(i => i !== interest));
+    updateFormData('interests', formData.interests.filter(i => i !== interest));
   };
 
   const nextStep = () => {
@@ -103,30 +114,129 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
 
   const isStepValid = () => {
     switch (currentStep) {
-      case 1: return formData.question1.trim() !== '';
-      case 2: return formData.question2.trim() !== '';
-      case 3: return formData.question3.trim() !== '';
-      case 4: return formData.question4.length > 0;
-      case 5: return formData.question5.trim() !== '';
-      case 6: return formData.question6.length > 0;
+      case 1: return formData.degree.trim() !== '';
+      case 2: return formData.originCountry.trim() !== '';
+      case 3: return formData.field.trim() !== '';
+      case 4: return formData.desiredFields.length > 0;
+      case 5: return formData.language.trim() !== '';
+      case 6: return formData.studyEnvironment.length > 0;
       case 7: return true;
       default: return false;
     }
   };
 
   return (
-    <div className="p-8">
+    <div>
       <ProgressIndicator currentStep={currentStep} totalSteps={totalSteps} />
       
-      {/* Step 1: Radio Buttons */}
+      {/* Step 1: Degree */}
       <FormStep
-        title="What's your preferred working style?"
-        subtitle="Choose the option that best describes you"
+        title="I currently have a..."
         isVisible={currentStep === 1}
       >
-        <RadioGroup value={formData.question1} onValueChange={(value) => updateFormData('question1', value)}>
+        <RadioGroup value={formData.degree} onValueChange={(value) => updateFormData('degree', value)}>
           <div className="space-y-4">
-            {['Remote Work', 'Hybrid Work', 'Office Work', 'Flexible Schedule'].map((option) => (
+            {['High School', 'Associate', "Bachelor's", "Master's", 'PhD', 'Other'].map((degree) => (
+              <div key={degree} className="flex items-center space-x-3 p-4 rounded-xl border-2 hover:border-blue-300 hover:bg-blue-50 transition-all cursor-pointer">
+                <RadioGroupItem value={degree} id={degree} />
+                <Label htmlFor={degree} className="flex-1 cursor-pointer text-lg">{degree}</Label>
+              </div>
+            ))}
+          </div>
+        </RadioGroup>
+      </FormStep>
+
+      {/* Step 2: Origin Country */}
+      <FormStep
+        title="I got my degree from?"
+        isVisible={currentStep === 2}
+      >
+        <Select value={formData.originCountry} onValueChange={(value) => updateFormData('originCountry', value)}>
+          <SelectTrigger className="w-full h-14 text-lg rounded-xl border-2">
+            <SelectValue placeholder="Select your country" />
+          </SelectTrigger>
+          <SelectContent>
+            {countries.map((country) => (
+              <SelectItem key={country} value={country}>{country}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </FormStep>
+
+      {/* Step 3: Field of Study */}
+      <FormStep
+        title={`I got my ${formData.degree.toLowerCase()} in...`}
+        isVisible={currentStep === 3}
+      >
+        <Select value={formData.field} onValueChange={(value) => updateFormData('field', value)}>
+          <SelectTrigger className="w-full h-14 text-lg rounded-xl border-2">
+            <SelectValue placeholder="Select field" />
+          </SelectTrigger>
+          <SelectContent>
+            {fieldsOfStudy.map((field) => (
+              <SelectItem key={field} value={field}>{field}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </FormStep>
+
+      {/* Step 4: Desired Master's Fields */}
+      <FormStep
+        title="I want to study a master's degree in..."
+        subtitle="You can choose up to 5 fields"
+        isVisible={currentStep === 4}
+      >
+        <div className="space-y-4">
+          <Select onValueChange={handleDesiredFieldSelect}>
+            <SelectTrigger className="w-full h-14 text-lg rounded-xl border-2">
+              <SelectValue placeholder="Select field" />
+            </SelectTrigger>
+            <SelectContent>
+              {fieldsOfStudy.filter(field => !formData.desiredFields.includes(field)).map((field) => (
+                <SelectItem key={field} value={field}>{field}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          
+          {formData.desiredFields.length > 0 && (
+            <div className="space-y-2">
+              <div className="text-sm font-medium text-gray-700">Selected fields:</div>
+              <div className="flex flex-wrap gap-2">
+                {formData.desiredFields.map((field) => (
+                  <div
+                    key={field}
+                    className="flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-2 rounded-lg border border-blue-200"
+                  >
+                    <span>{field}</span>
+                    <button
+                      onClick={() => handleDesiredFieldSelect(field)}
+                      className="text-blue-500 hover:text-blue-700 transition-colors"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="text-sm text-gray-500">
+                Selected: {formData.desiredFields.length}/5
+              </div>
+            </div>
+          )}
+        </div>
+      </FormStep>
+
+      {/* Step 5: Language Requirement */}
+      <FormStep
+        title="For language requirement..."
+        isVisible={currentStep === 5}
+      >
+        <RadioGroup value={formData.language} onValueChange={(value) => updateFormData('language', value)}>
+          <div className="space-y-4">
+            {[
+              'I have an IELTS or other certified language certificate',
+              'I would like assistance with language certificate',
+              'My previous degree was taught in English'
+            ].map((option) => (
               <div key={option} className="flex items-center space-x-3 p-4 rounded-xl border-2 hover:border-blue-300 hover:bg-blue-50 transition-all cursor-pointer">
                 <RadioGroupItem value={option} id={option} />
                 <Label htmlFor={option} className="flex-1 cursor-pointer text-lg">{option}</Label>
@@ -136,66 +246,30 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
         </RadioGroup>
       </FormStep>
 
-      {/* Step 2: Dropdown */}
+      {/* Step 6: Study Environment */}
       <FormStep
-        title="What's your experience level?"
-        subtitle="Select your current professional level"
-        isVisible={currentStep === 2}
-      >
-        <Select value={formData.question2} onValueChange={(value) => updateFormData('question2', value)}>
-          <SelectTrigger className="w-full h-14 text-lg rounded-xl border-2">
-            <SelectValue placeholder="Choose your experience level" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="entry">Entry Level (0-2 years)</SelectItem>
-            <SelectItem value="mid">Mid Level (3-5 years)</SelectItem>
-            <SelectItem value="senior">Senior Level (6-10 years)</SelectItem>
-            <SelectItem value="lead">Lead/Principal (10+ years)</SelectItem>
-            <SelectItem value="executive">Executive Level</SelectItem>
-          </SelectContent>
-        </Select>
-      </FormStep>
-
-      {/* Step 3: Dropdown */}
-      <FormStep
-        title="What's your primary role?"
-        subtitle="Select the role that best matches your position"
-        isVisible={currentStep === 3}
-      >
-        <Select value={formData.question3} onValueChange={(value) => updateFormData('question3', value)}>
-          <SelectTrigger className="w-full h-14 text-lg rounded-xl border-2">
-            <SelectValue placeholder="Choose your primary role" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="developer">Software Developer</SelectItem>
-            <SelectItem value="designer">UI/UX Designer</SelectItem>
-            <SelectItem value="manager">Product Manager</SelectItem>
-            <SelectItem value="analyst">Data Analyst</SelectItem>
-            <SelectItem value="marketer">Digital Marketer</SelectItem>
-            <SelectItem value="consultant">Consultant</SelectItem>
-            <SelectItem value="other">Other</SelectItem>
-          </SelectContent>
-        </Select>
-      </FormStep>
-
-      {/* Step 4: Multi-select (up to 3) */}
-      <FormStep
-        title="What are your top skills?"
-        subtitle="Select up to 3 skills that represent your expertise"
-        isVisible={currentStep === 4}
+        title="I would like to study in a..."
+        subtitle="You can pick up to 3 preferences"
+        isVisible={currentStep === 6}
       >
         <div className="space-y-3">
           <div className="text-sm text-gray-500 mb-4">
-            Selected: {formData.question4.length}/3
+            Selected: {formData.studyEnvironment.length}/3
           </div>
-          {['JavaScript', 'Python', 'React', 'Node.js', 'SQL', 'AWS', 'Docker', 'Git', 'Figma', 'Analytics'].map((skill) => {
-            const isSelected = formData.question4.includes(skill);
-            const canSelect = formData.question4.length < 3 || isSelected;
+          {[
+            'Big & busy city',
+            'Somewhere warm & sunny',
+            'A small, cosy town',
+            'At a top-10 ranked university',
+            'Near nature & outdoor activities'
+          ].map((env) => {
+            const isSelected = formData.studyEnvironment.includes(env);
+            const canSelect = formData.studyEnvironment.length < 3 || isSelected;
             
             return (
               <button
-                key={skill}
-                onClick={() => handleMultiSelect(skill)}
+                key={env}
+                onClick={() => handleEnvironmentSelect(env)}
                 disabled={!canSelect}
                 className={`w-full p-4 text-left rounded-xl border-2 transition-all ${
                   isSelected
@@ -205,7 +279,7 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
                     : 'border-gray-100 text-gray-400 cursor-not-allowed'
                 }`}
               >
-                {skill}
+                {env}
                 {isSelected && <span className="float-right">✓</span>}
               </button>
             );
@@ -213,36 +287,18 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
         </div>
       </FormStep>
 
-      {/* Step 5: Radio Buttons */}
+      {/* Step 7: Interest Keywords */}
       <FormStep
-        title="What's your company size?"
-        subtitle="Choose the range that matches your organization"
-        isVisible={currentStep === 5}
-      >
-        <RadioGroup value={formData.question5} onValueChange={(value) => updateFormData('question5', value)}>
-          <div className="space-y-4">
-            {['Startup (1-10 employees)', 'Small (11-50 employees)', 'Medium (51-200 employees)', 'Large (201-1000 employees)', 'Enterprise (1000+ employees)'].map((option) => (
-              <div key={option} className="flex items-center space-x-3 p-4 rounded-xl border-2 hover:border-blue-300 hover:bg-blue-50 transition-all cursor-pointer">
-                <RadioGroupItem value={option} id={option} />
-                <Label htmlFor={option} className="flex-1 cursor-pointer text-lg">{option}</Label>
-              </div>
-            ))}
-          </div>
-        </RadioGroup>
-      </FormStep>
-
-      {/* Step 6: Search with multi-select up to 10 */}
-      <FormStep
-        title="What are your areas of interest?"
-        subtitle="Search and select up to 10 areas that interest you"
-        isVisible={currentStep === 6}
+        title="I am curious about these topics"
+        subtitle="Choose up to 10 keywords"
+        isVisible={currentStep === 7}
       >
         <div className="space-y-4">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
             <input
               type="text"
-              placeholder="Search for areas of interest..."
+              placeholder="Start typing..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-lg"
@@ -250,18 +306,18 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
           </div>
           
           <div className="text-sm text-gray-500">
-            Selected: {formData.question6.length}/10
+            Selected: {formData.interests.length}/10
           </div>
           
           {searchQuery && (
             <div className="max-h-48 overflow-y-auto space-y-2 border rounded-xl p-2">
-              {filteredSearchData.map((item) => (
+              {filteredInterests.map((item) => (
                 <button
                   key={item}
                   onClick={() => handleInterestSelect(item)}
-                  disabled={formData.question6.length >= 10}
+                  disabled={formData.interests.length >= 10}
                   className={`w-full p-3 text-left rounded-lg transition-all ${
-                    formData.question6.length >= 10
+                    formData.interests.length >= 10
                       ? 'text-gray-400 cursor-not-allowed'
                       : 'hover:bg-blue-50 text-gray-700'
                   }`}
@@ -269,17 +325,17 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
                   {item}
                 </button>
               ))}
-              {filteredSearchData.length === 0 && (
+              {filteredInterests.length === 0 && (
                 <div className="p-3 text-gray-500 text-center">No results found</div>
               )}
             </div>
           )}
           
-          {formData.question6.length > 0 && (
+          {formData.interests.length > 0 && (
             <div className="space-y-2">
               <div className="text-sm font-medium text-gray-700">Selected interests:</div>
               <div className="flex flex-wrap gap-2">
-                {formData.question6.map((interest) => (
+                {formData.interests.map((interest) => (
                   <div
                     key={interest}
                     className="flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-2 rounded-lg border border-blue-200"
@@ -296,23 +352,6 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
               </div>
             </div>
           )}
-        </div>
-      </FormStep>
-
-      {/* Step 7: Completion */}
-      <FormStep
-        title="You're all set!"
-        subtitle="Thank you for completing the form"
-        isVisible={currentStep === 7}
-      >
-        <div className="text-center py-8">
-          <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Form Completed Successfully!</h3>
-          <p className="text-gray-600">Your responses have been recorded and will be processed shortly.</p>
         </div>
       </FormStep>
 
@@ -340,7 +379,7 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
               : 'bg-gray-200 text-gray-400 cursor-not-allowed'
           }`}
         >
-          {currentStep === totalSteps ? 'Finish' : currentStep === totalSteps - 1 ? 'Complete' : 'Next'}
+          {currentStep === totalSteps ? 'Finish' : 'Next'}
           {currentStep < totalSteps && <ChevronRight size={20} className="ml-1" />}
         </button>
       </div>
