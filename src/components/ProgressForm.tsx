@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import ProgressIndicator from './ProgressIndicator';
@@ -13,7 +12,7 @@ interface FormData {
   question3: string;
   question4: string[];
   question5: string;
-  question6: string;
+  question6: string[];
 }
 
 interface ProgressFormProps {
@@ -28,7 +27,7 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
     question3: '',
     question4: [],
     question5: '',
-    question6: ''
+    question6: []
   });
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -42,11 +41,22 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
     'DevOps',
     'UI/UX Design',
     'Product Management',
-    'Digital Marketing'
+    'Digital Marketing',
+    'Cloud Computing',
+    'Cybersecurity',
+    'Artificial Intelligence',
+    'Blockchain',
+    'Game Development',
+    'Quality Assurance',
+    'Database Management',
+    'System Architecture',
+    'Technical Writing',
+    'Project Management'
   ];
 
   const filteredSearchData = searchData.filter(item =>
-    item.toLowerCase().includes(searchQuery.toLowerCase())
+    item.toLowerCase().includes(searchQuery.toLowerCase()) &&
+    !formData.question6.includes(item)
   );
 
   const totalSteps = 7;
@@ -62,6 +72,19 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
     } else if (currentValues.length < 3) {
       updateFormData('question4', [...currentValues, value]);
     }
+  };
+
+  const handleInterestSelect = (interest: string) => {
+    const currentInterests = formData.question6;
+    if (currentInterests.length < 10) {
+      updateFormData('question6', [...currentInterests, interest]);
+      setSearchQuery('');
+    }
+  };
+
+  const removeInterest = (interest: string) => {
+    const currentInterests = formData.question6;
+    updateFormData('question6', currentInterests.filter(i => i !== interest));
   };
 
   const nextStep = () => {
@@ -85,7 +108,7 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
       case 3: return formData.question3.trim() !== '';
       case 4: return formData.question4.length > 0;
       case 5: return formData.question5.trim() !== '';
-      case 6: return formData.question6.trim() !== '';
+      case 6: return formData.question6.length > 0;
       case 7: return true;
       default: return false;
     }
@@ -208,10 +231,10 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
         </RadioGroup>
       </FormStep>
 
-      {/* Step 6: Search with autocomplete */}
+      {/* Step 6: Search with multi-select up to 10 */}
       <FormStep
-        title="What's your area of interest?"
-        subtitle="Search and select from our available options"
+        title="What are your areas of interest?"
+        subtitle="Search and select up to 10 areas that interest you"
         isVisible={currentStep === 6}
       >
         <div className="space-y-4">
@@ -219,11 +242,15 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
             <input
               type="text"
-              placeholder="Search for your area of interest..."
+              placeholder="Search for areas of interest..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-lg"
             />
+          </div>
+          
+          <div className="text-sm text-gray-500">
+            Selected: {formData.question6.length}/10
           </div>
           
           {searchQuery && (
@@ -231,12 +258,12 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
               {filteredSearchData.map((item) => (
                 <button
                   key={item}
-                  onClick={() => {
-                    updateFormData('question6', item);
-                    setSearchQuery('');
-                  }}
-                  className={`w-full p-3 text-left rounded-lg hover:bg-blue-50 transition-all ${
-                    formData.question6 === item ? 'bg-blue-50 text-blue-700 border-blue-200' : 'hover:bg-gray-50'
+                  onClick={() => handleInterestSelect(item)}
+                  disabled={formData.question6.length >= 10}
+                  className={`w-full p-3 text-left rounded-lg transition-all ${
+                    formData.question6.length >= 10
+                      ? 'text-gray-400 cursor-not-allowed'
+                      : 'hover:bg-blue-50 text-gray-700'
                   }`}
                 >
                   {item}
@@ -248,9 +275,25 @@ const ProgressForm = ({ onComplete }: ProgressFormProps) => {
             </div>
           )}
           
-          {formData.question6 && (
-            <div className="p-3 bg-blue-50 text-blue-700 rounded-xl">
-              Selected: {formData.question6}
+          {formData.question6.length > 0 && (
+            <div className="space-y-2">
+              <div className="text-sm font-medium text-gray-700">Selected interests:</div>
+              <div className="flex flex-wrap gap-2">
+                {formData.question6.map((interest) => (
+                  <div
+                    key={interest}
+                    className="flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-2 rounded-lg border border-blue-200"
+                  >
+                    <span>{interest}</span>
+                    <button
+                      onClick={() => removeInterest(interest)}
+                      className="text-blue-500 hover:text-blue-700 transition-colors"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>
