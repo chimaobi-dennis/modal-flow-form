@@ -1,12 +1,15 @@
+
 import React, { useState } from 'react';
 import Modal from '../components/Modal';
 import AuthModal from '../components/AuthModal';
+import ApplicationModal from '../components/ApplicationModal';
 import ProgressForm from '../components/ProgressForm';
 import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
   const { toast } = useToast();
 
   const handleFormComplete = (data: any) => {
@@ -44,6 +47,13 @@ const Index = () => {
           >
             Sign In to Continue
           </button>
+          
+          <button
+            onClick={() => setIsApplicationModalOpen(true)}
+            className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+          >
+            Start Application
+          </button>
         </div>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
@@ -80,6 +90,11 @@ const Index = () => {
       <AuthModal 
         isOpen={isAuthModalOpen} 
         onClose={() => setIsAuthModalOpen(false)} 
+      />
+
+      <ApplicationModal 
+        isOpen={isApplicationModalOpen} 
+        onClose={() => setIsApplicationModalOpen(false)} 
       />
     </div>
   );
