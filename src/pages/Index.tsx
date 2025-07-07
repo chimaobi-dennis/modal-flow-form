@@ -1,52 +1,12 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState } from 'react';
 import Modal from '../components/Modal';
-import AuthModal from '../components/AuthModal';
 import ProgressForm from '../components/ProgressForm';
 import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { toast } = useToast();
-
-  // Check if user is logged in on component mount
-  useEffect(() => {
-    // TODO: Replace with actual authentication check
-    // For now, we'll simulate checking localStorage or auth state
-    const userToken = localStorage.getItem('userToken');
-    setIsLoggedIn(!!userToken);
-  }, []);
-
-  const handleStartForm = () => {
-    if (isLoggedIn) {
-      setIsModalOpen(true);
-    } else {
-      setIsAuthModalOpen(true);
-    }
-  };
-
-  const handleLogin = () => {
-    // TODO: Navigate to login page
-    // For now, we'll simulate login
-    console.log('Navigating to login page...');
-    toast({
-      title: "Login Required",
-      description: "Please connect Supabase to enable authentication functionality.",
-    });
-    setIsAuthModalOpen(false);
-  };
-
-  const handleRegister = () => {
-    // TODO: Navigate to register page
-    // For now, we'll simulate register
-    console.log('Navigating to register page...');
-    toast({
-      title: "Registration Required",
-      description: "Please connect Supabase to enable authentication functionality.",
-    });
-    setIsAuthModalOpen(false);
-  };
 
   const handleFormComplete = (data: any) => {
     console.log('Form completed with data:', data);
@@ -70,18 +30,11 @@ const Index = () => {
         </div>
         
         <button
-          onClick={handleStartForm}
+          onClick={() => setIsModalOpen(true)}
           className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
         >
-          {isLoggedIn ? 'Start Progress Form' : 'Get Started'}
+          Start Progress Form
         </button>
-
-        {/* Authentication status indicator */}
-        <div className="mt-4">
-          <p className="text-sm text-gray-500">
-            {isLoggedIn ? '✅ You are signed in' : '🔒 Sign in required to continue'}
-          </p>
-        </div>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
           <div className="bg-white/70 backdrop-blur-sm p-6 rounded-xl shadow-lg">
@@ -113,13 +66,6 @@ const Index = () => {
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ProgressForm onComplete={handleFormComplete} />
       </Modal>
-
-      <AuthModal 
-        isOpen={isAuthModalOpen} 
-        onClose={() => setIsAuthModalOpen(false)}
-        onLogin={handleLogin}
-        onRegister={handleRegister}
-      />
     </div>
   );
 };
