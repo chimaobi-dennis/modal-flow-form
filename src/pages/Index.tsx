@@ -1,11 +1,12 @@
-
 import React, { useState } from 'react';
 import Modal from '../components/Modal';
+import AuthModal from '../components/AuthModal';
 import ProgressForm from '../components/ProgressForm';
 import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const { toast } = useToast();
 
   const handleFormComplete = (data: any) => {
@@ -29,12 +30,21 @@ const Index = () => {
           </p>
         </div>
         
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-        >
-          Start Progress Form
-        </button>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+          >
+            Start Progress Form
+          </button>
+          
+          <button
+            onClick={() => setIsAuthModalOpen(true)}
+            className="bg-white border-2 border-blue-200 text-blue-600 px-8 py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:border-blue-300"
+          >
+            Sign In to Continue
+          </button>
+        </div>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
           <div className="bg-white/70 backdrop-blur-sm p-6 rounded-xl shadow-lg">
@@ -66,6 +76,11 @@ const Index = () => {
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ProgressForm onComplete={handleFormComplete} />
       </Modal>
+
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+      />
     </div>
   );
 };
