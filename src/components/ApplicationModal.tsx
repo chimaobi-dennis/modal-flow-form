@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, CheckCircle, User, Phone, Globe, BookOpen, Briefcase, Shield } from 'lucide-react';
 
 interface ApplicationModalProps {
@@ -9,9 +8,11 @@ interface ApplicationModalProps {
 
 const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
   const [currentStep, setCurrentStep] = useState(0);
+  const [userLocation, setUserLocation] = useState('US');
   const [formData, setFormData] = useState({
     fullName: '',
     phoneNumber: '',
+    countryCode: '+1',
     countries: [] as string[],
     hasEnglishTest: '',
     englishTest: '',
@@ -19,6 +20,31 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
     agreeTerms: false,
     agreeDataUsage: false
   });
+
+  const countryCodes = [
+    { code: '+1', country: 'US', flag: '🇺🇸', name: 'United States' },
+    { code: '+44', country: 'GB', flag: '🇬🇧', name: 'United Kingdom' },
+    { code: '+1', country: 'CA', flag: '🇨🇦', name: 'Canada' },
+    { code: '+61', country: 'AU', flag: '🇦🇺', name: 'Australia' },
+    { code: '+49', country: 'DE', flag: '🇩🇪', name: 'Germany' },
+    { code: '+33', country: 'FR', flag: '🇫🇷', name: 'France' },
+    { code: '+34', country: 'ES', flag: '🇪🇸', name: 'Spain' },
+    { code: '+39', country: 'IT', flag: '🇮🇹', name: 'Italy' },
+    { code: '+31', country: 'NL', flag: '🇳🇱', name: 'Netherlands' },
+    { code: '+46', country: 'SE', flag: '🇸🇪', name: 'Sweden' },
+    { code: '+47', country: 'NO', flag: '🇳🇴', name: 'Norway' },
+    { code: '+45', country: 'DK', flag: '🇩🇰', name: 'Denmark' },
+    { code: '+41', country: 'CH', flag: '🇨🇭', name: 'Switzerland' },
+    { code: '+43', country: 'AT', flag: '🇦🇹', name: 'Austria' },
+    { code: '+32', country: 'BE', flag: '🇧🇪', name: 'Belgium' },
+    { code: '+353', country: 'IE', flag: '🇮🇪', name: 'Ireland' },
+    { code: '+64', country: 'NZ', flag: '🇳🇿', name: 'New Zealand' },
+    { code: '+81', country: 'JP', flag: '🇯🇵', name: 'Japan' },
+    { code: '+82', country: 'KR', flag: '🇰🇷', name: 'South Korea' },
+    { code: '+65', country: 'SG', flag: '🇸🇬', name: 'Singapore' },
+    { code: '+852', country: 'HK', flag: '🇭🇰', name: 'Hong Kong' },
+    { code: '+971', country: 'AE', flag: '🇦🇪', name: 'UAE' }
+  ];
 
   const countries = [
     'United States', 'United Kingdom', 'Canada', 'Australia', 'Germany', 
@@ -75,6 +101,35 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
     }
   ];
 
+  useEffect(() => {
+    // Try to get user's location for default country code
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // This is a simplified location detection
+          // In a real app, you'd use a geolocation API service
+          fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=YOUR_API_KEY`)
+            .then(response => response.json())
+            .then(data => {
+              const countryCode = countryCodes.find(cc => cc.country === data.country_code2);
+              if (countryCode) {
+                setFormData(prev => ({ ...prev, countryCode: countryCode.code }));
+                setUserLocation(data.country_code2);
+              }
+            })
+            .catch(() => {
+              // Fallback to US
+              setFormData(prev => ({ ...prev, countryCode: '+1' }));
+            });
+        },
+        () => {
+          // Geolocation denied, use default
+          setFormData(prev => ({ ...prev, countryCode: '+1' }));
+        }
+      );
+    }
+  }, []);
+
   if (!isOpen) return null;
 
   const handleNext = () => {
@@ -100,9 +155,13 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
   };
 
   const handleSubmit = () => {
-    console.log('Application submitted:', formData);
+    const fullPhoneNumber = formData.countryCode + formData.phoneNumber;
+    const submissionData = {
+      ...formData,
+      fullPhoneNumber
+    };
+    console.log('Application submitted:', submissionData);
     onClose();
-    // Here you would typically submit to your backend
   };
 
   const canProceed = () => {
@@ -156,13 +215,29 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-              <input
-                type="tel"
-                value={formData.phoneNumber}
-                onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                placeholder="Enter your phone number"
-              />
+              <div className="flex space-x-2">
+                <select
+                  value={formData.countryCode}
+                  onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
+                  className="px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
+                >
+                  {countryCodes.map((cc) => (
+                    <option key={cc.country} value={cc.code}>
+                      {cc.flag} {cc.code}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="tel"
+                  value={formData.phoneNumber}
+                  onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+              <p className="text-sm text-gray-500 mt-2">
+                Full number: {formData.countryCode}{formData.phoneNumber}
+              </p>
             </div>
           </div>
         );
