@@ -7,7 +7,6 @@ import { listTemplates, registerTemplate, isRegistryInitialized, markRegistryIni
 import { ModernProfessional } from './templates/ModernProfessional';
 import { BlackWhiteClean } from './templates/BlackWhiteClean';
 import { CanvaBWClean } from './templates/CanvaBWClean';
-import id from 'zod/v4/locales/id.cjs';
 
 interface Template {
   id: number; // DB id (authoritative for persistence)
@@ -87,6 +86,7 @@ export const TemplateSelection: React.FC<TemplateSelectionProps> = ({
         console.log('[ResumeBuilder] TemplateSelection: register from glob', { path, base, slug, aliases });
         registerTemplate({
           id: slug,
+          slug,
           label: human || base,
           component,
           aliases,
@@ -98,12 +98,14 @@ export const TemplateSelection: React.FC<TemplateSelectionProps> = ({
       // Fallback to explicit registrations if glob is not supported
       registerTemplate({
         id: 'modern-professional',
+        slug: 'modern-professional',
         label: 'Modern Professional',
         component: ModernProfessional,
         aliases: ['1', 'modern_professional']
       });
       registerTemplate({
         id: 'black-white-clean',
+        slug: 'black-white-clean',
         label: 'Black & White Clean',
         component: BlackWhiteClean,
         aliases: ['2', 'black_white_clean', 'bw-clean']
@@ -125,15 +127,15 @@ export const TemplateSelection: React.FC<TemplateSelectionProps> = ({
     const apiIdStr = String(apiItem.id ?? '').trim();
     // 1) direct id match (rare): registry id equals api slug
     const bySlug = apiSlug ? registry.find(r => r.id === apiSlug) : undefined;
-    if (bySlug) return bySlug.id;
+    if (bySlug) return String(bySlug.id);
     // 2) alias match: any registry alias equals api id or slug
     const byAlias = registry.find(r => (r.aliases || []).map(String).some(a => a === apiIdStr || a === apiSlug));
-    if (byAlias) return byAlias.id;
+    if (byAlias) return String(byAlias.id);
     // 3) name-based fallback: slugify name and try id
     if (apiItem.name) {
       const nameSlug = toSlug(String(apiItem.name));
       const byName = registry.find(r => r.id === nameSlug || (r.aliases || []).includes(nameSlug));
-      if (byName) return byName.id;
+      if (byName) return String(byName.id);
     }
     return null;
   };
