@@ -504,7 +504,7 @@ export const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
               const templates = listTemplates();
               entry = templates.find(e => e.id === slug || (e.aliases || []).includes(slug));
             }
-            if (entry) finalKey = entry.id;
+            if (entry) finalKey = String(entry.id);
           } catch {}
           
           if (active) {

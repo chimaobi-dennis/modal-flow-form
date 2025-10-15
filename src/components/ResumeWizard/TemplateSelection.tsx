@@ -249,8 +249,8 @@ export const TemplateSelection: React.FC<TemplateSelectionProps> = ({
             console.log('[ResumeBuilder] TemplateSelection: API returned empty, using fallback registry list');
             const fallback = listTemplates().map((t) => ({
               id: Number.isFinite(Number(t.id)) ? Number(t.id) : 0,
-              slug: t.id,
-              name: t.label || t.id,
+              slug: String(t.id),
+              name: String(t.label || t.id),
               description: t.description || 'Ready-to-use professional template',
               preview: t.preview || '/assets/resume-previews/placeholder.png',
               type: asTemplateType(t.type),
@@ -292,8 +292,8 @@ export const TemplateSelection: React.FC<TemplateSelectionProps> = ({
           console.log('[ResumeBuilder] TemplateSelection: error while fetching templates ->', e?.message);
           const fallback = listTemplates().map((t) => ({
             id: Number.isFinite(Number(t.id)) ? Number(t.id) : 0,
-            slug: t.id,
-            name: t.label || t.id,
+            slug: String(t.id),
+            name: String(t.label || t.id),
             description: t.description || 'Ready-to-use professional template',
             preview: t.preview || '/assets/resume-previews/placeholder.png',
             type: asTemplateType(t.type),

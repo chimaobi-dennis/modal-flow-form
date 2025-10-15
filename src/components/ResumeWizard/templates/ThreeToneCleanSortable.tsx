@@ -79,14 +79,14 @@ function PureResumeTemplate({ data }: { data: ResumeData }) {
             <section className="col-span-8 space-y-8" id="left-column">
               <DndContext sensors={useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }), useSensor(KeyboardSensor))} onDragEnd={() => {}}>
                 <SortableContext items={[]} strategy={verticalListSortingStrategy}>
-                  {/* Sections will be rendered by the parent component */}
+                  <div>{/* Sections will be rendered by the parent component */}</div>
                 </SortableContext>
               </DndContext>
             </section>
             <aside className="col-span-4 space-y-8" id="right-column">
               <DndContext sensors={useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }), useSensor(KeyboardSensor))} onDragEnd={() => {}}>
                 <SortableContext items={[]} strategy={verticalListSortingStrategy}>
-                  {/* Sections will be rendered by the parent component */}
+                  <div>{/* Sections will be rendered by the parent component */}</div>
                 </SortableContext>
               </DndContext>
             </aside>

@@ -213,9 +213,9 @@ export const ApplicationCard = ({ application, onClick, isSelected, onProgramCli
         <div className="mb-4">
           <div className="flex items-center justify-between text-sm mb-2">
             <span className="text-gray-600">Progress</span>
-            <span className="font-medium text-gray-900">{getProgressPercentage(application.progress, application.status)}%</span>
+            <span className="font-medium text-gray-900">{getProgressPercentage(application.progress, application.status, application.stage)}%</span>
           </div>
-          <Progress value={getProgressPercentage(application.progress, application.status)} className="h-2" />
+          <Progress value={getProgressPercentage(application.progress, application.status, application.stage)} className="h-2" />
         </div>
 
         <div className="flex items-center justify-between">

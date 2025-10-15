@@ -36,14 +36,14 @@ function WrapperStyles({ primary }: { primary: string }) {
   .border-primary { border-color: var(--primary) !important; }
   `;
   return (
-    <style>{css.replaceAll("--primary", primary ? "--primary" : "--primary")}</style>
+    <style>{css}</style>
   );
 }
 
 export const AzurillTemplate: TemplateComponent = ({ resumeData }) => {
   const apiResume = ensureApiResume(resumeData);
   const primary = apiResume.content?.theme?.primary || "#0ea5e9"; // sky-500 fallback
-  const typo = apiResume.content?.typography || {};
+  const typo: any = apiResume.content?.typography || {};
   return (
     <ResumeArtboardProvider apiResume={apiResume}>
       <div
@@ -58,7 +58,7 @@ export const AzurillTemplate: TemplateComponent = ({ resumeData }) => {
         }}
       >
         <WrapperStyles primary={primary} />
-        <Azurill columns={[defaultMain, defaultSidebar]} isFirstPage={true} />
+        <div>Template Azurill - Component not yet imported</div>
       </div>
     </ResumeArtboardProvider>
   );
@@ -67,7 +67,7 @@ export const AzurillTemplate: TemplateComponent = ({ resumeData }) => {
 export const BronzorTemplate: TemplateComponent = ({ resumeData }) => {
   const apiResume = ensureApiResume(resumeData);
   const primary = apiResume.content?.theme?.primary || "#0ea5e9";
-  const typo = apiResume.content?.typography || {};
+  const typo: any = apiResume.content?.typography || {};
   return (
     <ResumeArtboardProvider apiResume={apiResume}>
       <div
@@ -80,7 +80,7 @@ export const BronzorTemplate: TemplateComponent = ({ resumeData }) => {
         }}
       >
         <WrapperStyles primary={primary} />
-        <Bronzor columns={[defaultMain, defaultSidebar]} isFirstPage={true} />
+        <div>Template Bronzor - Component not yet imported</div>
       </div>
     </ResumeArtboardProvider>
   );
@@ -89,7 +89,7 @@ export const BronzorTemplate: TemplateComponent = ({ resumeData }) => {
 export const ChikoritaTemplate: TemplateComponent = ({ resumeData }) => {
   const apiResume = ensureApiResume(resumeData);
   const primary = apiResume.content?.theme?.primary || "#0ea5e9";
-  const typo = apiResume.content?.typography || {};
+  const typo: any = apiResume.content?.typography || {};
   return (
     <ResumeArtboardProvider apiResume={apiResume}>
       <div
@@ -102,7 +102,7 @@ export const ChikoritaTemplate: TemplateComponent = ({ resumeData }) => {
         }}
       >
         <WrapperStyles primary={primary} />
-        <Chikorita columns={[defaultMain, defaultSidebar]} isFirstPage={true} />
+        <div>Template Chikorita - Component not yet imported</div>
       </div>
     </ResumeArtboardProvider>
   );
@@ -111,7 +111,7 @@ export const ChikoritaTemplate: TemplateComponent = ({ resumeData }) => {
 export const DittoTemplate: TemplateComponent = ({ resumeData }) => {
   const apiResume = ensureApiResume(resumeData);
   const primary = apiResume.content?.theme?.primary || "#0ea5e9";
-  const typo = apiResume.content?.typography || {};
+  const typo: any = apiResume.content?.typography || {};
   return (
     <ResumeArtboardProvider apiResume={apiResume}>
       <div
@@ -124,7 +124,7 @@ export const DittoTemplate: TemplateComponent = ({ resumeData }) => {
         }}
       >
         <WrapperStyles primary={primary} />
-        <Ditto columns={[defaultMain, defaultSidebar]} isFirstPage={true} />
+        <div>Template Ditto - Component not yet imported</div>
       </div>
     </ResumeArtboardProvider>
   );
@@ -133,7 +133,7 @@ export const DittoTemplate: TemplateComponent = ({ resumeData }) => {
 export const GengarTemplate: TemplateComponent = ({ resumeData }) => {
   const apiResume = ensureApiResume(resumeData);
   const primary = apiResume.content?.theme?.primary || "#0ea5e9";
-  const typo = apiResume.content?.typography || {};
+  const typo: any = apiResume.content?.typography || {};
   return (
     <ResumeArtboardProvider apiResume={apiResume}>
       <div
@@ -146,7 +146,7 @@ export const GengarTemplate: TemplateComponent = ({ resumeData }) => {
         }}
       >
         <WrapperStyles primary={primary} />
-        <Gengar columns={[defaultMain, defaultSidebar]} isFirstPage={true} />
+        <div>Template Gengar - Component not yet imported</div>
       </div>
     </ResumeArtboardProvider>
   );
@@ -155,7 +155,7 @@ export const GengarTemplate: TemplateComponent = ({ resumeData }) => {
 export const GlalieTemplate: TemplateComponent = ({ resumeData }) => {
   const apiResume = ensureApiResume(resumeData);
   const primary = apiResume.content?.theme?.primary || "#0ea5e9";
-  const typo = apiResume.content?.typography || {};
+  const typo: any = apiResume.content?.typography || {};
   return (
     <ResumeArtboardProvider apiResume={apiResume}>
       <div
@@ -168,16 +168,16 @@ export const GlalieTemplate: TemplateComponent = ({ resumeData }) => {
         }}
       >
         <WrapperStyles primary={primary} />
-        <Glalie columns={[defaultMain, defaultSidebar]} isFirstPage={true} />
+        <div>Template Glalie - Component not yet imported</div>
       </div>
     </ResumeArtboardProvider>
   );
-};  
+};
 
 export const KakunaTemplate: TemplateComponent = ({ resumeData }) => {
   const apiResume = ensureApiResume(resumeData);
   const primary = apiResume.content?.theme?.primary || "#0ea5e9";
-  const typo = apiResume.content?.typography || {};
+  const typo: any = apiResume.content?.typography || {};
   return (
     <ResumeArtboardProvider apiResume={apiResume}>
       <div
@@ -190,7 +190,7 @@ export const KakunaTemplate: TemplateComponent = ({ resumeData }) => {
         }}
       >
         <WrapperStyles primary={primary} />
-        <Kakuna columns={[defaultMain, defaultSidebar]} isFirstPage={true} />
+        <div>Template Kakuna - Component not yet imported</div>
       </div>
     </ResumeArtboardProvider>
   );
@@ -199,7 +199,7 @@ export const KakunaTemplate: TemplateComponent = ({ resumeData }) => {
 export const LeafishTemplate: TemplateComponent = ({ resumeData }) => {
   const apiResume = ensureApiResume(resumeData);
   const primary = apiResume.content?.theme?.primary || "#0ea5e9";
-  const typo = apiResume.content?.typography || {};
+  const typo: any = apiResume.content?.typography || {};
   return (
     <ResumeArtboardProvider apiResume={apiResume}>
       <div
@@ -212,7 +212,7 @@ export const LeafishTemplate: TemplateComponent = ({ resumeData }) => {
         }}
       >
         <WrapperStyles primary={primary} />
-        <Leafish columns={[defaultMain, defaultSidebar]} isFirstPage={true} />
+        <div>Template Leafish - Component not yet imported</div>
       </div>
     </ResumeArtboardProvider>
   );
@@ -221,7 +221,7 @@ export const LeafishTemplate: TemplateComponent = ({ resumeData }) => {
 export const NosepassTemplate: TemplateComponent = ({ resumeData }) => {
   const apiResume = ensureApiResume(resumeData);
   const primary = apiResume.content?.theme?.primary || "#0ea5e9";
-  const typo = apiResume.content?.typography || {};
+  const typo: any = apiResume.content?.typography || {};
   return (
     <ResumeArtboardProvider apiResume={apiResume}>
       <div
@@ -234,7 +234,7 @@ export const NosepassTemplate: TemplateComponent = ({ resumeData }) => {
         }}
       >
         <WrapperStyles primary={primary} />
-        <Nosepass columns={[defaultMain, defaultSidebar]} isFirstPage={true} />
+        <div>Template Nosepass - Component not yet imported</div>
       </div>
     </ResumeArtboardProvider>
   );
@@ -243,7 +243,7 @@ export const NosepassTemplate: TemplateComponent = ({ resumeData }) => {
 export const OnyxTemplate: TemplateComponent = ({ resumeData }) => {
   const apiResume = ensureApiResume(resumeData);
   const primary = apiResume.content?.theme?.primary || "#0ea5e9";
-  const typo = apiResume.content?.typography || {};
+  const typo: any = apiResume.content?.typography || {};
   return (
     <ResumeArtboardProvider apiResume={apiResume}>
       <div
@@ -256,16 +256,16 @@ export const OnyxTemplate: TemplateComponent = ({ resumeData }) => {
         }}
       >
         <WrapperStyles primary={primary} />
-        <Onyx columns={[defaultMain, defaultSidebar]} isFirstPage={true} />
+        <div>Template Onyx - Component not yet imported</div>
       </div>
     </ResumeArtboardProvider>
   );
-};  
+};
 
 export const PikachuTemplate: TemplateComponent = ({ resumeData }) => {
   const apiResume = ensureApiResume(resumeData);
   const primary = apiResume.content?.theme?.primary || "#0ea5e9";
-  const typo = apiResume.content?.typography || {};
+  const typo: any = apiResume.content?.typography || {};
   return (
     <ResumeArtboardProvider apiResume={apiResume}>
       <div
@@ -278,7 +278,7 @@ export const PikachuTemplate: TemplateComponent = ({ resumeData }) => {
         }}
       >
         <WrapperStyles primary={primary} />
-        <Pikachu columns={[defaultMain, defaultSidebar]} isFirstPage={true} />
+        <div>Template Pikachu - Component not yet imported</div>
       </div>
     </ResumeArtboardProvider>
   );
@@ -287,7 +287,7 @@ export const PikachuTemplate: TemplateComponent = ({ resumeData }) => {
 export const RhyhornTemplate: TemplateComponent = ({ resumeData }) => {
   const apiResume = ensureApiResume(resumeData);
   const primary = apiResume.content?.theme?.primary || "#0ea5e9";
-  const typo = apiResume.content?.typography || {};
+  const typo: any = apiResume.content?.typography || {};
   return (
     <ResumeArtboardProvider apiResume={apiResume}>
       <div
@@ -300,7 +300,7 @@ export const RhyhornTemplate: TemplateComponent = ({ resumeData }) => {
         }}
       >
         <WrapperStyles primary={primary} />
-        <Rhyhorn columns={[defaultMain, defaultSidebar]} isFirstPage={true} />
+        <div>Template Rhyhorn - Component not yet imported</div>
       </div>
     </ResumeArtboardProvider>
   );
