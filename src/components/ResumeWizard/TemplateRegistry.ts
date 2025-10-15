@@ -1,5 +1,4 @@
 import React from 'react';
-import id from 'zod/v4/locales/id.cjs';
 
 export type TemplateProps = { resumeData: any };
 export type TemplateComponent = React.FC<TemplateProps>;

@@ -13,7 +13,6 @@ import ApplicationJourney from "./pages/ApplicationJourney";
 import PathwaySelection from "./pages/PathwaySelection";
 import SelfDirectedPath from "./pages/SelfDirectedPath";
 import PremiumService from "./pages/PremiumService";
-import MyPage from "./pages/MyPage";
 import MyProfile from "./pages/MyProfile";
 import AdminScholarshipSteps from "./pages/admin/AdminScholarshipSteps";
 import AdminVisaSteps from "./pages/admin/AdminVisaSteps";

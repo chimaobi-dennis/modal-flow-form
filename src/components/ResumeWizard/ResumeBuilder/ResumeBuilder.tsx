@@ -64,7 +64,7 @@ export const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
         const human = base.replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/[-_]+/g, ' ').replace(/^\s+|\s+$/g, '');
         const slug = toSlug(base);
         const aliases = [base, base.toLowerCase(), slug.replace(/-/g, '_')];
-        registerTemplate({ id: slug, label: human || base, component, aliases });
+        registerTemplate({ id: slug, slug, label: human || base, component, aliases });
       });
       // Also extend aliases for backend templates so numeric id/key/slug map to local entries
       (async () => {
@@ -81,7 +81,7 @@ export const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
             if (existing) {
               registerTemplate({
                 id: existing.id,
-                slug: existing.id,
+                slug: String(existing.id),
                 label: existing.label,
                 component: existing.component,
                 aliases: Array.from(new Set([...(existing.aliases || []), ...aliases]))
