@@ -393,7 +393,7 @@ const StartApplication = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   // Extract query parameters from URL
-  const profileID = searchParams.get('profileID') || '';
+  const profileID = searchParams.get('profileID') || 13;
   const degree = searchParams.get('Degree') || '';
   const field = searchParams.get('Field') || '';
   const desiredFields = searchParams.getAll('desiredFields[]') || [];
