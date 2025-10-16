@@ -10,30 +10,30 @@ import NewApplicationModal from "@/components/NewApplicationModal";
 import { toast } from "sonner";
 import axios from 'axios';
 
-interface Requirement {
-  name: string;
-  completed: boolean;
-}
-
 interface Program {
   id: number;
   name: string;
   university: string;
-  status: string;
-  deadline?: string;
-  requirements: Requirement[];
-  completed_requirements: string[];
+  city: string;
 }
 
 interface Application {
   id: number;
-  isGroup: boolean;
   name: string;
-  status: string;
+  destination: string;
+  program?: string;
+  university: string;
+  deadline: string;
+  status: number;
   progress: number;
-  programs: Program[];
+  stage: number;
   created_at: string;
   updated_at: string;
+  isGroup?: boolean;
+  programId?: number;
+  groupData?: {
+    programs: Program[];
+  };
 }
 
 const Index = () => {
@@ -46,7 +46,7 @@ const Index = () => {
   const [showNewAppModal, setShowNewAppModal] = useState(false);
   const [loadingApplications, setLoadingApplications] = useState(true);
   const [errorLoadingApplications, setErrorLoadingApplications] = useState<string | null>(null);
-  const userId = document.getElementById('root')?.getAttribute('data-user-id');
+  const userId = document.getElementById('root')?.getAttribute('data-user-id') || '1'; // Fallback to '1' if not found
   
 
   useEffect(() => {
@@ -92,10 +92,13 @@ const Index = () => {
     } else {
       const filtered = applications.filter(app => 
         app.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        app.programs.some(program => 
+        (app.program && app.program.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (app.university && app.university.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (app.destination && app.destination.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (app.groupData?.programs?.some(program => 
           program.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           program.university.toLowerCase().includes(searchTerm.toLowerCase())
-        )
+        ))
       );
       setFilteredApplications(filtered);
     }

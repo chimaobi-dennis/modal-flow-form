@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp, Edit, Trash2, Plus, Check, X, ArrowRight, Loade
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-const userId = document.getElementById('root')?.getAttribute('data-user-id');
+const userId = document.getElementById('root')?.getAttribute('data-user-id') || '1'; // Fallback to '1' if not found
 
 
 interface Profile {

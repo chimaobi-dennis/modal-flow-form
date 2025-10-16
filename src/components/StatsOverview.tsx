@@ -3,13 +3,21 @@ import { TrendingUp, Clock, CheckCircle, AlertTriangle } from "lucide-react";
 
 interface Application {
   id: number;
+  name: string;
+  destination: string;
+  program?: string;
   university: string;
-  program: string;
   deadline: string;
   status: number;
   progress: number;
-  requirements: string[];
-  completed: string[];
+  stage: number;
+  created_at: string;
+  updated_at: string;
+  isGroup?: boolean;
+  programId?: number;
+  groupData?: {
+    programs: any[];
+  };
 }
 
 interface StatsOverviewProps {
@@ -20,9 +28,9 @@ export const StatsOverview = ({ applications }: StatsOverviewProps) => {
   const totalApplications = applications.length;
   const completedApplications = applications.filter(app => app.status === 2 || app.status === 1).length;
   const inProgressApplications = applications.filter(app => app.status === 0).length;
-  const averageProgress = Math.round(
-    (applications.reduce((sum, app) => sum + (app.progress / 4) * 100, 0) / totalApplications)
-  );
+  const averageProgress = totalApplications > 0 ? Math.round(
+    (applications.reduce((sum, app) => sum + app.progress, 0) / totalApplications)
+  ) : 0;
 
   const stats = [
     {

@@ -4,15 +4,21 @@ import { useState } from "react";
 
 interface Application {
   id: number;
+  name: string;
+  destination: string;
+  program?: string;
   university: string;
-  program: string;
   deadline: string;
-  status: string;
+  status: number;
   progress: number;
-  requirements: string[];
-  completed: string[];
+  stage: number;
+  created_at: string;
+  updated_at: string;
   isGroup?: boolean;
-  destination?: string;
+  programId?: number;
+  groupData?: {
+    programs: any[];
+  };
 }
 
 interface DeadlineAlertProps {
@@ -25,10 +31,12 @@ export const DeadlineAlert = ({ applications }: DeadlineAlertProps) => {
   const getUpcomingDeadlines = () => {
     const today = new Date();
     return applications.filter(app => {
+      if (!app.deadline) return false;
       const deadlineDate = new Date(app.deadline);
       const diffTime = deadlineDate.getTime() - today.getTime();
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      return diffDays <= 7 && diffDays >= 0 && app.status !== "Submitted" && app.status !== "Under Review" && !dismissedAlerts.includes(app.id);
+      // Status 0 = Open Application, 1 = Application Completed, 2 = Submitted
+      return diffDays <= 7 && diffDays >= 0 && app.status === 0 && !dismissedAlerts.includes(app.id);
     }).sort((a, b) => new Date(a.deadline).getTime() - new Date(b.deadline).getTime());
   };
 
