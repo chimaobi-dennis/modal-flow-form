@@ -46,7 +46,7 @@ const Index = () => {
   const [showNewAppModal, setShowNewAppModal] = useState(false);
   const [loadingApplications, setLoadingApplications] = useState(true);
   const [errorLoadingApplications, setErrorLoadingApplications] = useState<string | null>(null);
-  const userId = document.getElementById('root')?.getAttribute('data-user-id') || '1'; // Fallback to '1' if not found
+  const userId = document.getElementById('root')?.getAttribute('data-user-id') || '63'; // Fallback to '1' if not found
   
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const Index = () => {
         if (!response.ok) {
           throw new Error(data.message || 'Failed to fetch applications');
         }
-        
+        console.log('APPdata', data);
         if (data.status === 'success') {
           const formattedData = data.data.map((app: any) => ({
             ...app,
