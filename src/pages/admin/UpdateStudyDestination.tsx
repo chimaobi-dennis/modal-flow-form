@@ -69,7 +69,7 @@ const debounce = <F extends (...args: any[]) => any>(
     };
 };
 
-const userId = document.getElementById('root')?.getAttribute('data-user-id');
+const userId = document.getElementById('root')?.getAttribute('data-user-id') || '63';
 
 const UpdateStudyDestination = () => {
     const [searchParams] = useSearchParams();

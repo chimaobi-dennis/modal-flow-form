@@ -14,7 +14,7 @@ import { getCurrencyForCountry } from '@/lib/utils';
 import { ApplicationTermsModal } from '@/components/ApplicationTermsModal';
 import { toast } from 'sonner';
 
-const userId = document.getElementById('root')?.getAttribute('data-user-id');
+const userId = document.getElementById('root')?.getAttribute('data-user-id') || '63';
 
 
 interface Program {

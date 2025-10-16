@@ -225,7 +225,7 @@ const formatTimeTo12Hour = (time24: string): string => {
 
 const ManageApplication = () => {
     const [searchParams] = useSearchParams();
-    const userId = document.getElementById('root')?.getAttribute('data-user-id');
+    const userId = document.getElementById('root')?.getAttribute('data-user-id') || '63';
     const applicationId = searchParams.get('ID');
 
     const [activeTab, setActiveTab] = useState("application");

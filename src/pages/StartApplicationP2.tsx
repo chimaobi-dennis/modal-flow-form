@@ -6,7 +6,7 @@ import { Rocket, GraduationCap, Lightbulb } from "lucide-react";
 import { toast } from 'sonner';
 import { useSearchParams } from 'react-router-dom';
 
-const userId = document.getElementById('root')?.getAttribute('data-user-id');
+const userId = document.getElementById('root')?.getAttribute('data-user-id') || '63';
 
 const StartApplicationP2 = () => {
     const navigate = useNavigate();
