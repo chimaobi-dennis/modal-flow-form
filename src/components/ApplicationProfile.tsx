@@ -44,7 +44,7 @@ export const ApplicationProfile = ({ onAddNew, onStartApplication }: Application
     const fetchProfiles = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`/api/v1/student-profiles/${userId}`);
+        const response = await fetch(`https://uniplanr.com/api/v1/student-profiles/${userId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch profiles');
         }
@@ -80,7 +80,7 @@ export const ApplicationProfile = ({ onAddNew, onStartApplication }: Application
   const saveEdit = async (id: number) => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/v1/student-profiles/${userId}`, {
+      const response = await fetch(`https://uniplanr.com/api/v1/student-profiles/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ export const ApplicationProfile = ({ onAddNew, onStartApplication }: Application
     }
 
     try {
-      const response = await fetch(`/api/v1/student-profiles/${userId}`, {
+      const response = await fetch(`https://uniplanr.com/api/v1/student-profiles/${userId}`, {
         method: 'DELETE',
       });
 

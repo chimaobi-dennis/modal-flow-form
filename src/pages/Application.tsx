@@ -53,7 +53,7 @@ const Index = () => {
     const fetchApplications = async () => {
       try {
         setLoadingApplications(true);
-        const response = await fetch(`/api/v1/applications/${userId}`);
+        const response = await fetch(`https://uniplanr.com/api/v1/applications/${userId}`);
         const data = await response.json();
         
         if (!response.ok) {
