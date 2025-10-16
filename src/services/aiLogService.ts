@@ -15,7 +15,7 @@ export interface AiLogPayload {
 
 export async function logAiGeneration(payload: AiLogPayload): Promise<void> {
   try {
-    await fetch('/api/v1/ai/logs', {
+    await fetch('https://uniplanr.com/api/v1/ai/logs', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       credentials: 'include',

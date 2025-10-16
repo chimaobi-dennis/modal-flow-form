@@ -160,7 +160,7 @@ export const TemplateSelection: React.FC<TemplateSelectionProps> = ({
       try {
         setLoading(true);
         console.log('[ResumeBuilder][Step 3] TemplateSelection: fetching templates from API');
-        const res = await fetch('/api/v1/templates?category=cv', { headers: { 'Accept': 'application/json' } });
+        const res = await fetch('https://uniplanr.com/api/v1/templates?category=cv', { headers: { 'Accept': 'application/json' } });
         if (!res.ok) throw new Error(`Failed to load templates (${res.status})`);
         const json = await res.json();
         const apiData = Array.isArray(json?.data) ? json.data : [];
@@ -222,7 +222,7 @@ export const TemplateSelection: React.FC<TemplateSelectionProps> = ({
                 } else {
                   // 2) Not in list? Fetch single template to resolve slug
                   try {
-                    const single = await fetch(`/api/v1/templates/${initialTemplateId}`, { headers: { 'Accept': 'application/json' } });
+                    const single = await fetch(`https://uniplanr.com/api/v1/templates/${initialTemplateId}`, { headers: { 'Accept': 'application/json' } });
                     if (single.ok) {
                       const sj = await single.json();
                       const t = sj?.data || sj; // support plain or data-wrapped
@@ -265,7 +265,7 @@ export const TemplateSelection: React.FC<TemplateSelectionProps> = ({
               if (initialTemplateId) {
                 // Attempt to fetch single template to discover slug
                 try {
-                  const single = await fetch(`/api/v1/templates/${initialTemplateId}`, { headers: { 'Accept': 'application/json' } });
+                  const single = await fetch(`https://uniplanr.com/api/v1/templates/${initialTemplateId}`, { headers: { 'Accept': 'application/json' } });
                   if (single.ok) {
                     const sj = await single.json();
                     const t = sj?.data || sj;

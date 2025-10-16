@@ -84,7 +84,7 @@ const StartApplicationP2 = () => {
               throw new Error('Application ID not found in URL');
             }
 
-            const response = await fetch(`/api/v1/update-application/${applicationId}`, {
+            const response = await fetch(`https://uniplanr.com/api/v1/update-application/${applicationId}`, {
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json',

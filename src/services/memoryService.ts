@@ -22,7 +22,7 @@ export interface AiMemoryQueryResponse {
 
 export async function queryAiMemory(payload: AiMemoryQueryPayload): Promise<AiMemoryQueryResponse> {
   try {
-    const res = await fetch('/api/v1/ai/memory/query', {
+    const res = await fetch('https://uniplanr.com/api/v1/ai/memory/query', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ export async function queryAiMemory(payload: AiMemoryQueryPayload): Promise<AiMe
 
 export async function storeAiMemory(payload: AiMemoryStorePayload): Promise<{ ok: boolean; id?: number | string; message?: string }> {
   try {
-    const res = await fetch('/api/v1/ai/memory', {
+    const res = await fetch('https://uniplanr.com/api/v1/ai/memory', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

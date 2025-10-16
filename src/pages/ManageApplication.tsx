@@ -339,7 +339,7 @@ const ManageApplication = () => {
     const fetchApplication = useCallback(async () => {
         try {
             setLoadingApplication(true);
-            const response = await fetch(`/api/v1/user-application/${userId}/${applicationId}`);
+            const response = await fetch(`https://uniplanr.com/api/v1/user-application/${userId}/${applicationId}`);
             const data = await response.json();
 
             if (!response.ok) {
@@ -379,7 +379,7 @@ const ManageApplication = () => {
     const updateApplication = async (updatedData: Partial<Application>) => {
         setIsUpdating(true);
         try {
-            const response = await fetch(`/api/v1/update-application/${applicationId}`, {
+            const response = await fetch(`https://uniplanr.com/api/v1/update-application/${applicationId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -480,7 +480,7 @@ const ManageApplication = () => {
             }
 
             try {
-                const response = await fetch(`/api/v1/update-application/${applicationId}`, {
+                const response = await fetch(`https://uniplanr.com/api/v1/update-application/${applicationId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -563,7 +563,7 @@ const ManageApplication = () => {
         });
 
         try {
-            const response = await fetch(`/api/v1/update-application/${applicationId}`, {
+            const response = await fetch(`https://uniplanr.com/api/v1/update-application/${applicationId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -843,7 +843,7 @@ const ManageApplication = () => {
             });
 
             try {
-                const response = await fetch(`/api/v1/update-application/${applicationId}`, {
+                const response = await fetch(`https://uniplanr.com/api/v1/update-application/${applicationId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

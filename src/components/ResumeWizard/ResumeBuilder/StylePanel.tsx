@@ -77,7 +77,7 @@ export const StylePanel: React.FC<StylePanelProps> = ({
       setTemplatesLoading(true);
       setTemplatesError(null);
       try {
-        const res = await fetch('/api/v1/templates?category=cv&order_by=popularity', {
+        const res = await fetch('https://uniplanr.com/api/v1/templates?category=cv&order_by=popularity', {
           headers: { 'Accept': 'application/json' }
         });
         if (!res.ok) throw new Error(`Failed to load templates (${res.status})`);

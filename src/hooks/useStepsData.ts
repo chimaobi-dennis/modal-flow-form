@@ -98,7 +98,7 @@ export const useStepsData = (destinationId?: string) => {
   const fetchDestination = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`/api/v1/study-destination-steps/${destinationId}`);
+      const response = await fetch(`https://uniplanr.com/api/v1/study-destination-steps/${destinationId}`);
       const apiSteps = await response.json();
       setSteps(apiSteps.steps);
       setStudyDestination(apiSteps.destination);
@@ -136,7 +136,7 @@ export const useStepsData = (destinationId?: string) => {
       setIsUpdating(true);
       setSteps(newSteps);
       if (destinationId) {
-        const response = await fetch(`/api/v1/update-study-destination-steps/${destinationId}`, {
+        const response = await fetch(`https://uniplanr.com/api/v1/update-study-destination-steps/${destinationId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -167,7 +167,7 @@ export const useStepsData = (destinationId?: string) => {
     try {
       setIsUpdating(true);
       if (destinationId) {
-        const response = await fetch(`/api/v1/study-destinations-details/${destinationId}`, {
+        const response = await fetch(`https://uniplanr.com/api/v1/study-destinations-details/${destinationId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

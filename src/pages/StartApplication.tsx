@@ -101,7 +101,7 @@ const ProgramCard = ({ program, showLocalCurrency }: { program: Program, showLoc
     if (!selectedDestination) return;
     setIsSubmitting(true);
     try {
-      const response = await fetch('/api/v1/submit-application', {
+      const response = await fetch('https://uniplanr.com/api/v1/submit-application', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -413,7 +413,7 @@ const StartApplication = () => {
     if (!selectedDestination) return;
     setIsSubmitting(true);
     try {
-      const response = await fetch('/api/v1/submit-application', {
+      const response = await fetch('https://uniplanr.com/api/v1/submit-application', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -480,7 +480,7 @@ const StartApplication = () => {
 
       setIsLoading(true);
       try {
-        const response = await fetch(`/api/v1/recommended-programs/${profileID}`, {
+        const response = await fetch(`https://uniplanr.com/api/v1/recommended-programs/${profileID}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -517,7 +517,7 @@ const StartApplication = () => {
     const fetchStudyDestinations = async () => {
       setIsLoadingCountries(true);
       try {
-        const response = await fetch(`/api/v1/study-destinations/${userId}`, {
+        const response = await fetch(`https://uniplanr.com/api/v1/study-destinations/${userId}`, {
           method: 'GET', 
           headers: {
             'Content-Type': 'application/json',
@@ -572,7 +572,7 @@ const StartApplication = () => {
   useEffect(() => {
     const fetchStudentProfile = async () => {
       try {
-        const response = await fetch(`/api/v1/student-profile/${profileID}`);
+        const response = await fetch(`https://uniplanr.com/api/v1/student-profile/${profileID}`);
         const data = await response.json();
         if (data?.origin_country) {
           // You'll need to implement this mapping based on your countries table

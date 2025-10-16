@@ -27,14 +27,14 @@ async function safeJson(res: Response) {
 }
 
 export async function getUserProfiles(userId: string | number): Promise<StudentProfile[]> {
-  const res = await fetch(`/api/v1/student-profiles/${userId}`, { credentials: 'include' });
+  const res = await fetch(`https://uniplanr.com/api/v1/student-profiles/${userId}`, { credentials: 'include' });
   if (!res.ok) return [];
   const data = await safeJson(res);
   return Array.isArray(data) ? data : (data?.profiles || []);
 }
 
 export async function getPrograms(): Promise<ProgramItem[]> {
-  const res = await fetch('/api/v1/programs', { credentials: 'include' });
+  const res = await fetch('https://uniplanr.com/api/v1/programs', { credentials: 'include' });
   if (!res.ok) return [];
   const data = await safeJson(res);
   console.log('getPrograms', data);
@@ -55,7 +55,7 @@ export async function getAllPrograms(maxPages: number = 100, useCache: boolean =
   const run = async () => {
     const results: ProgramItem[] = [];
     // Try to get everything in a single request using a large page size first
-    const bigUrl = '/api/v1/programs?per_page=10000&page=1';
+    const bigUrl = 'https://uniplanr.com/api/v1/programs?per_page=10000&page=1';
     try {
       const bigRes = await fetch(bigUrl, { credentials: 'include' });
       if (bigRes.ok) {
@@ -92,7 +92,7 @@ export async function getAllPrograms(maxPages: number = 100, useCache: boolean =
     } catch {}
 
     // Fallback: standard pagination loop
-    let url: string | null = '/api/v1/programs';
+    let url: string | null = 'https://uniplanr.com/api/v1/programs';
     let pages = 0;
     while (url && pages < maxPages) {
       const res = await fetch(url, { credentials: 'include' });
@@ -119,7 +119,7 @@ export async function getAllPrograms(maxPages: number = 100, useCache: boolean =
 }
 
 export async function getUserApplications(userId: string | number): Promise<UserApplication[]> {
-  const res = await fetch(`/api/v1/applications/${userId}`, { credentials: 'include' });
+  const res = await fetch(`https://uniplanr.com/api/v1/applications/${userId}`, { credentials: 'include' });
   if (!res.ok) return [];
   const data = await safeJson(res);
   console.log('getUserApplications', data);

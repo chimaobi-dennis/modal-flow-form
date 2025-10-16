@@ -132,7 +132,7 @@ const Documents = () => {
       try {
         setDocsLoading(true);
         setDocsError(null);
-        const res = await fetch(`/api/v1/users/${uid}/documents`, { signal: controller.signal });
+        const res = await fetch(`https://uniplanr.com/api/v1/users/${uid}/documents`, { signal: controller.signal });
         if (!res.ok) {
           throw new Error(`Failed to load documents (${res.status})`);
         }

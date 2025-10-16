@@ -18,7 +18,7 @@ export const useActivityLogger = (userId?: string, applicationId?: string) => {
  
   const logActivity = async (activity: Omit<ActivityLog, 'id' | 'created_at'>) => {
     try {
-      const response = await fetch('/api/v1/activity-log', {
+      const response = await fetch('https://uniplanr.com/api/v1/activity-log', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

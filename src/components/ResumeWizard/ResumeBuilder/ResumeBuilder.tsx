@@ -479,7 +479,7 @@ export const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
           if (!slug) {
             // Fallback: consult list endpoint to discover key/slug for this id
             try {
-              const res = await fetch('/api/v1/templates?category=cv', { headers: { 'Accept': 'application/json' } });
+              const res = await fetch('https://uniplanr.com/api/v1/templates?category=cv', { headers: { 'Accept': 'application/json' } });
               if (res.ok) {
                 const js = await res.json();
                 const arr = Array.isArray(js?.data) ? js.data : [];

@@ -126,7 +126,7 @@ const FileManagerModal: React.FC<FileManagerModalProps> = ({
       }
       
       try {
-        const response = await fetch('/api/v1/upload-document', {
+        const response = await fetch('https://uniplanr.com/api/v1/upload-document', {
           method: 'POST',
           headers: {
             'X-CSRF-TOKEN': csrfToken,

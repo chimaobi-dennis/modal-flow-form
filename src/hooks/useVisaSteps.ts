@@ -64,7 +64,7 @@ export const useVisaSteps = (destinationId?: string) => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/v1/study-destination-steps/${destinationId}`, {
+      const response = await fetch(`https://uniplanr.com/api/v1/study-destination-steps/${destinationId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -108,7 +108,7 @@ export const useVisaSteps = (destinationId?: string) => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/v1/update-study-destination-steps/${destinationId}`, {
+      const response = await fetch(`https://uniplanr.com/api/v1/update-study-destination-steps/${destinationId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
