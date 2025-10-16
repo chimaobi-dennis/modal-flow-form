@@ -44,113 +44,134 @@ const Index = () => {
   const applications = [
     {
       id: 1,
-      name: "Stanford CS Application",
-      destination: "USA",
       university: "Stanford University",
       program: "Computer Science",
       deadline: "2024-01-15",
-      status: 1,
+      status: "In Progress",
       progress: 65,
-      stage: 2,
-      created_at: "2024-01-01",
-      updated_at: "2024-01-10"
+      requirements: ["Personal Statement", "Transcripts", "Letters of Rec", "Test Scores"],
+      completed: ["Transcripts", "Test Scores"]
     },
     {
       id: 2,
-      name: "MIT EE Application",
-      destination: "USA",
       university: "MIT",
       program: "Electrical Engineering",
       deadline: "2024-01-01",
-      status: 3,
+      status: "Submitted",
       progress: 100,
-      stage: 4,
-      created_at: "2024-01-01",
-      updated_at: "2024-01-10"
+      requirements: ["Personal Statement", "Transcripts", "Letters of Rec", "Portfolio"],
+      completed: ["Personal Statement", "Transcripts", "Letters of Rec", "Portfolio"]
     },
     {
       id: 3,
-      name: "UC System Applications",
-      destination: "USA",
       university: "University of California System",
       program: "Multiple Programs",
       deadline: "2024-02-01",
-      status: 1,
+      status: "In Progress",
       progress: 45,
-      stage: 2,
-      created_at: "2024-01-01",
-      updated_at: "2024-01-10",
+      requirements: ["Personal Statement", "Transcripts", "Letters of Rec", "Test Scores"],
+      completed: ["Transcripts"],
       isGroup: true,
       groupData: {
+        id: 3,
+        groupName: "UC System Applications",
+        university: "University of California System",
+        status: "In Progress",
+        progress: 45,
         programs: [
           {
             id: 31,
             name: "Computer Science - UC Berkeley",
             university: "UC Berkeley",
-            city: "Berkeley"
+            deadline: "2024-02-01",
+            status: "In Progress",
+            progress: 60,
+            requirements: ["Personal Statement", "Transcripts", "Letters of Rec"],
+            completed: ["Transcripts"]
           },
           {
             id: 32,
             name: "Data Science - UCLA",
             university: "UCLA",
-            city: "Los Angeles"
+            deadline: "2024-02-01",
+            status: "Not Started",
+            progress: 30,
+            requirements: ["Personal Statement", "Transcripts", "Letters of Rec"],
+            completed: ["Transcripts"]
           },
           {
             id: 33,
             name: "Software Engineering - UC San Diego",
             university: "UC San Diego",
-            city: "San Diego"
+            deadline: "2024-02-01",
+            status: "In Progress",
+            progress: 45,
+            requirements: ["Personal Statement", "Transcripts", "Letters of Rec"],
+            completed: ["Transcripts"]
           }
-        ]
+        ],
+        deadline: "2024-02-01"
       }
     },
     {
       id: 4,
-      name: "Harvard MBA Application",
-      destination: "USA",
       university: "Harvard University",
       program: "Business Administration",
       deadline: "2024-01-10",
-      status: 2,
+      status: "Under Review",
       progress: 100,
-      stage: 3,
-      created_at: "2024-01-01",
-      updated_at: "2024-01-10"
+      requirements: ["Personal Statement", "Transcripts", "Letters of Rec", "Interview"],
+      completed: ["Personal Statement", "Transcripts", "Letters of Rec", "Interview"]
     },
     {
       id: 5,
-      name: "Swedish Master's Programs",
-      destination: "Sweden",
       university: "Swedish Universities",
       program: "Multiple Programs",
       deadline: "2024-01-15",
-      status: 1,
+      status: "In Progress",
       progress: 75,
-      stage: 3,
-      created_at: "2024-01-01",
-      updated_at: "2024-01-10",
+      requirements: ["Personal Statement", "Transcripts", "Letters of Rec"],
+      completed: ["Transcripts", "Letters of Rec"],
       isGroup: true,
       groupData: {
+        id: 5,
+        groupName: "Swedish Master's Programs",
+        university: "Swedish Universities",
+        status: "In Progress",
+        progress: 75,
         programs: [
           {
             id: 51,
             name: "Computer Science - KTH Royal Institute",
             university: "KTH Royal Institute of Technology",
-            city: "Stockholm"
+            deadline: "2024-01-15",
+            status: "Submitted",
+            progress: 100,
+            requirements: ["Personal Statement", "Transcripts", "Letters of Rec"],
+            completed: ["Personal Statement", "Transcripts", "Letters of Rec"]
           },
           {
             id: 52,
             name: "Data Science - Uppsala University",
             university: "Uppsala University",
-            city: "Uppsala"
+            deadline: "2024-01-15",
+            status: "In Progress",
+            progress: 80,
+            requirements: ["Personal Statement", "Transcripts", "Letters of Rec"],
+            completed: ["Transcripts", "Letters of Rec"]
           },
           {
             id: 53,
             name: "AI & Machine Learning - Chalmers",
             university: "Chalmers University of Technology",
-            city: "Gothenburg"
+            deadline: "2024-01-15",
+            status: "In Progress",
+            progress: 45,
+            requirements: ["Personal Statement", "Transcripts", "Letters of Rec"],
+            completed: ["Transcripts"]
           }
-        ]
+        ],
+        deadline: "2024-01-15"
       }
     }
   ];
