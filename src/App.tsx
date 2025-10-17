@@ -28,6 +28,7 @@ import ManageApplication from "./pages/ManageApplication";
 import StudyDestination from "./pages/admin/StudyDestination";
 import UpdateStudyDestination from "./pages/admin/UpdateStudyDestination";
 import { ResumeEdit } from "./pages/ResumeEdit";
+import PremiumCheckout from "./pages/PremiumCheckout";
 
 const queryClient = new QueryClient();
 
@@ -56,7 +57,7 @@ const App = () => (
            <Route path="/user/document/resume" element={<ResumeEdit />} />
            <Route path="/user/document/edit-resume" element={<ResumeEdit />} />
            <Route path="/user/document/edit-doc" element={<EditDocument />} />
-          
+          <Route path="/student/premium-checkout" element={<Layout><PremiumCheckout /></Layout>} />
           {/* not in use */}
           <Route path="/student/application-journey" element={<Layout><ApplicationJourney /></Layout>} />
           <Route path="/student/pathway-selection" element={<Layout><PathwaySelection /></Layout>} />
