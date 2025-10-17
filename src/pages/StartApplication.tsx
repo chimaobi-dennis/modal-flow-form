@@ -580,7 +580,6 @@ const StartApplication = () => {
           console.log('Currency:', currency);
           setLocalCurrency(currency);
         }
-        console.log('Student profile:', data);
       } catch (error) {
         console.error('Error fetching student profile:', error);
       }

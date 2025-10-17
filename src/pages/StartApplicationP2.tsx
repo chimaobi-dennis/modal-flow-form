@@ -13,63 +13,69 @@ const StartApplicationP2 = () => {
     const [searchParams] = useSearchParams();
 
     const subscriptionPlans = [
-        {
-            id: 'self-directed',
-            title: 'Guided Pathway',
-            subtitle: 'Perfect for Independent Learners',
-            price: 'FREE',
-            priceAmount: 0,
-            currency: 'SEK',
-            description: 'Take control of your application journey with our comprehensive self-guided tools.',
-            icon: Lightbulb,
-            recommended: false,
-            popular: false,
-            features: [
-                'Step-by-Step Checklist',
-                'Self-Paced Learning',
-                'Learn as You Go',
-                'Regular Updates',
-                'Basic Document Templates',
-                'Application Timeline Tracker',
-                'University Database Access',
-                'Email Support'
-            ],
-            buttonText: 'Start Free Journey',
-            gradient: 'from-blue-600 to-blue-700',
-            bgColor: 'bg-blue-50',
-            textColor: 'text-blue-700',
-            borderColor: 'border-blue-200',
-            buttonColor: 'bg-blue-600 hover:bg-blue-700'
-        },
-        {
-            id: 'premium',
-            title: 'Premium Service',
-            subtitle: 'Complete Success Package',
-            price: '300',
-            priceAmount: 300,
-            currency: 'SEK',
-            description: 'Get expert guidance and maximize your chances of admission success.',
-            icon: GraduationCap,
-            recommended: true,
-            popular: true,
-            features: [
-                'One-Year Full Access Subscription',
-                'Expert Consultation (1-on-1)',
-                'Enhanced Application Support',
-                '98% Admission Success Rate',
-                'Complete Document reviews',
-                'Priority Customer Support',
-                'Scholarship Matching Service',
-                'Visa Application Assistance'             
-            ],
-            buttonText: 'Upgrade to Premium',
-            gradient: 'from-gray-800 to-gray-900',
-            bgColor: 'bg-gray-50',
-            textColor: 'text-gray-900',
-            borderColor: 'border-gray-200',
-            buttonColor: 'bg-gray-900 hover:bg-gray-800'
-        },
-    ];
+    {
+        id: 'self-directed',
+        title: 'Guided Pathway',
+        subtitle: 'Perfect for Independent Learners',
+        price: 'FREE',
+        priceAmount: 0,
+        currency: 'SEK',
+        description: 'Take control of your application journey with our comprehensive self-guided tools.',
+        icon: Lightbulb,
+        recommended: false,
+        popular: false,
+        features: [
+            'Step-by-Step Checklist',
+            'Self-Paced Learning',
+            'Learn as You Go',
+            'Regular Updates',
+            'Basic Document Templates',
+            'Application Timeline Tracker',
+            'University Database Access',
+            'Semantic Program Matching',
+            'Email Support',
+            'Can upgrade to premium at any time'
+        ],
+        buttonText: 'Start Free Journey',
+        gradient: 'from-blue-600 to-blue-700',
+        bgColor: 'bg-blue-50',
+        textColor: 'text-blue-700',
+        borderColor: 'border-blue-200',
+        buttonColor: 'bg-blue-600 hover:bg-blue-700'
+    },
+    {
+        id: 'premium',
+        title: 'Premium Service',
+        subtitle: 'Complete Success Package',
+        price: '300',
+        priceAmount: 300,
+        currency: 'SEK',
+        description: 'Get expert guidance and maximize your chances of admission success.',
+        icon: GraduationCap,
+        recommended: true,
+        popular: true,
+        features: [
+            'One-Year Full Access Subscription',
+            'AI-Powered Program Matching',
+            'Personalized AI Program Matching with Explanations',
+            'Contextual Program Ranking',
+            'Expert Consultation (1-on-1)',
+            'Enhanced Application Support',
+            '98% Admission Success Rate',
+            'Complete Document Reviews',
+            'Priority Customer Support',
+            'Scholarship Matching Service',
+            'Visa Application Assistance',
+            'All Free Features Included'             
+        ],
+        buttonText: 'Upgrade to Premium',
+        gradient: 'from-gray-800 to-gray-900',
+        bgColor: 'bg-gray-50',
+        textColor: 'text-gray-900',
+        borderColor: 'border-gray-200',
+        buttonColor: 'bg-gray-900 hover:bg-gray-800'
+    },
+];
 
     const handlePathwaySelect = async (pathwayId: string) => {
         const plan = subscriptionPlans.find(p => p.id === pathwayId);
