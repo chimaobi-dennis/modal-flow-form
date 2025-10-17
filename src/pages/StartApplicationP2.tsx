@@ -124,7 +124,7 @@ const StartApplicationP2 = () => {
           toast.success(`Upgrading to ${plan.title}!`);
           toast.info('Redirecting to premium checkout...');
           setTimeout(() => {
-            navigate('/premium-checkout');
+            navigate('/student/premium-checkout');
           }, 2000);
         }
       };
